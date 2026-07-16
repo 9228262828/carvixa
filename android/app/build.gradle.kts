@@ -19,26 +19,58 @@ android {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("carvia-release.jks")
+            storePassword = "123456"
+            keyAlias = "carvia"
+            keyPassword = "123456"
+        }
+    }
+
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.carvixa.carcare"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+
+        // Android SDK
+        minSdk = 24
         targetSdk = flutter.targetSdkVersion
+
+        // App Version
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
 
     buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+        debug {
             signingConfig = signingConfigs.getByName("debug")
+        }
+
+        release {
+            signingConfig = signingConfigs.getByName("release")
+
+            // Code Shrinking
+            isMinifyEnabled = false
+            isShrinkResources = false
+
+            // Optional Proguard
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
 }
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    implementation(kotlin("stdlib"))
 }

@@ -13,7 +13,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
     ('Children’s Privacy', 'Carvixa does not knowingly collect personal information from children or users of any age.'),
     ('Changes', 'This policy may be updated if the app features or legal requirements change.'),
     ('Contact Us', 'For privacy questions, contact brighterhomespacellc@gmail.com.'),
-    ('Last Updated', 'July 16, 2026'),
+    ('Last Updated', 'July, 2026'),
   ]);
 }
 
